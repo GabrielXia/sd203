@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tester JS2</title>
+</head>
+<body>
+Indiquez l'URL du dossier où le TP js2 a été publié (avec le / final) puis appuyez sur le bouton Next:
+<input type="text" id="studenturl" width="100" placeholder="student url"></input>
+<br/>
+<button type="button" onclick="next()">Next</button>
+<br />
+<p>Note: <span id="note">0</span></p>
+<p>Attendez que le programme affiche "Note: finale XX", ce qui prend plus d'une minute. </p>
+
+<iframe id="f" src="" width="100%" height="600px"></iframe>
+<script type="application/ecmascript">
+    let note=0;function next(){document.getElementById('f').src=document.getElementById("studenturl").value+"ex1.html";setTimeout(next1,1000)}
+    function next1(){const iframe=document.getElementById('f').contentDocument;iframe.getElementById("button1").click();iframe.getElementById("button2").click();setTimeout(next2,1000)}
+    function next2(){const iframe=document.getElementById('f').contentDocument;try{const text1=iframe.getElementById("textarea").textContent;if(text1.indexOf('Lorem ipsum')===0&&text1.indexOf('interdum mi.')>2000){note+=1;document.getElementById("note").textContent=""+note;console.log("ok1a")}else{console.log(text1.indexOf('Lorem ipsum')+" -- "+text1.indexOf('interdum mi.'))}}catch(err){console.log("erreur ex1a");console.log(err)}
+        try{const text2=iframe.getElementById("textarea2").children;if(text2.length===5&&text2[0].tagName==="P"&&text2[1].tagName==="P"&&text2[0].style.color!==text2[1].style.color&&text2[1].style.color!==text2[2].style.color&&text2[2].style.color!==text2[3].style.color&&text2[3].style.color!==text2[4].style.color){note+=1;document.getElementById("note").textContent=""+note;console.log("ok1b")}}catch(err){console.log("erreur ex1b");console.log(err)}
+        document.getElementById('f').src=document.getElementById("studenturl").value+"ex2.html";setTimeout(next3,1000)}
+    function next3(){const iframe=document.getElementById('f').contentDocument;if(!iframe.getElementById("textedit")||!iframe.getElementById("sendbutton")){console.log("missing or wrong id for buttons")}
+        var wait=0;setTimeout(function(){iframe.getElementById("textedit").value="testing1";iframe.getElementById("sendbutton").click()},wait+=500);setTimeout(function(){iframe.getElementById("textedit").value="testing2";iframe.getElementById("sendbutton").click()},wait+=500);setTimeout(function(){iframe.getElementById("textedit").value="testing3";iframe.getElementById("sendbutton").click()},wait+=500);setTimeout(function(){iframe.getElementById("textedit").value="testing4";iframe.getElementById("sendbutton").click()},wait+=500);setTimeout(function(){iframe.getElementById("textedit").value="testing5";iframe.getElementById("sendbutton").click()},wait+=500);setTimeout(function(){iframe.getElementById("textedit").value="testing6";iframe.getElementById("sendbutton").click()},wait+=500);setTimeout(function(){iframe.getElementById("textedit").value="testing7";iframe.getElementById("sendbutton").click()},wait+=500);setTimeout(function(){iframe.getElementById("textedit").value="testing8";iframe.getElementById("sendbutton").click()},wait+=500);setTimeout(function(){iframe.getElementById("textedit").value="testing9";iframe.getElementById("sendbutton").click()},wait+=500);setTimeout(function(){iframe.getElementById("textedit").value="testing_testing";iframe.getElementById("sendbutton").click()},wait+=500);setTimeout(next4,wait+1000)}
+    function next4(){const iframe=document.getElementById('f').contentDocument;try{const content=iframe.getElementById("textarea").children;if(content[0].textContent.indexOf('testing_testing')===content[0].textContent.length-15){note+=1;console.log("ok2a")}else{console.log("erreur sur le dernier message")}
+        if(content.length===10){note+=1;console.log("ok2b")}else{console.log("erreur sur le nombre de messages affichés")}
+        if(content[1].textContent.indexOf('testing9')===content[1].textContent.length-8&&content[9].textContent.indexOf('testing1')===content[9].textContent.length-8){note+=1;console.log("ok2c")}else{console.log("erreur sur les autres messages")}}catch(err){console.log("erreur ex2");console.log(err)}
+        document.getElementById("note").textContent=""+note;document.getElementById('f').src=document.getElementById("studenturl").value+"ex3.html";setTimeout(next5,1000)}
+    function next5(){const iframe=document.getElementById('f').contentDocument;if(!iframe.getElementById("PLAY")||!iframe.getElementById("MAIN")){console.log("missing or wrong id for button or slide div")}
+        iframe.getElementById("PLAY").click();setTimeout(next6,2500)}
+    function next6(){const iframe=document.getElementById('f').contentDocument;if(iframe.getElementById("MAIN").firstElementChild.src==="http://www.telecom-paristech.fr/"){note+=1;console.log("ok3a");document.getElementById("note").textContent=""+note}else{console.log("mauvaise url au début "+iframe.getElementById("MAIN").firstElementChild.src)}
+        setTimeout(next7,5000)}
+    function next7(){const iframe=document.getElementById('f').contentDocument;if(iframe.getElementById("MAIN").firstElementChild.src==="https://portail.rezel.net/"){note+=1;console.log("ok3b");document.getElementById("note").textContent=""+note}else{console.log("mauvaise url après 5s "+iframe.getElementById("MAIN").firstElementChild.src)}
+        setTimeout(next8,30000)}
+    function next8(){const iframe=document.getElementById('f').contentDocument;if(iframe.getElementById("MAIN").firstElementChild===null||iframe.getElementById("MAIN").firstElementChild.src===""||iframe.getElementById("MAIN").firstElementChild.src===document.getElementById('f').src){note+=1;console.log("ok3c");document.getElementById("note").textContent=""+note}else{console.log("mauvaise url après la fin de la présentation")}
+        document.getElementById('f').src=document.getElementById("studenturl").value+"ex4.html";setTimeout(next81,1000)}
+    function next81(){const iframe=document.getElementById('f').contentDocument;if(!iframe.getElementById("PLAY")){console.log("pas de bouton play")}else{iframe.getElementById("PLAY").click()}
+        setTimeout(function(){document.getElementById('f').contentDocument.getElementById("PAUSE").click()},7500);setTimeout(next9,15000)}
+    function next9(){const iframe=document.getElementById('f').contentDocument;if(iframe.getElementById("MAIN").firstElementChild.src==="https://portail.rezel.net/"){note+=1;console.log("ok4a");document.getElementById("note").textContent=""+note}else{console.log("pause ne marche pas")}
+        iframe.getElementById("NEXT").click();if(iframe.getElementById("MAIN").firstElementChild.src==="https://www.telecom-paristech.fr/international/strategie.html"){note+=1;console.log("ok4b");document.getElementById("note").textContent=""+note}else{console.log("next ne marche pas")}
+        iframe.getElementById("PREVIOUS").click();if(iframe.getElementById("MAIN").firstElementChild.src==="https://portail.rezel.net/"){note+=1;console.log("ok4c");document.getElementById("note").textContent="finale "+note*20/11}else{console.log("previous ne marche pas")}}</script>
+</body>
+</html>
